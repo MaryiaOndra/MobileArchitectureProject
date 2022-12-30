@@ -917,7 +917,7 @@ GameObject:
   - component: {fileID: 4927681395739018}
   - component: {fileID: 95658022555206892}
   m_Layer: 0
-  m_Name: RPGHeroPBR
+  m_Name: Hero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
