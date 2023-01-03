@@ -12,12 +12,12 @@ namespace CodeBase.Hero
         [SerializeField] private CharacterController characterController;
         [SerializeField] private float movementSpeed;
 
-        private InputService _inputService;
+        private IInputService _inputService;
         private Camera _camera;
 
         private void Awake()
         {
-            _inputService = Game.inputService;
+            _inputService = Game.InputService;
         }
 
         private void Start()

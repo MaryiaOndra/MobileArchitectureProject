@@ -5,19 +5,12 @@ namespace CodeBase.Infrastructure
 {
     public class Game
     {
-        public static InputService inputService;
-        
+        public GameStateMachine StateMachine { get; private set; }
+        public static IInputService InputService { get; set; }
+
         public Game()
         {
-            RegisterInputService();
-        }
-
-        private static void RegisterInputService()
-        {
-            if (Application.isEditor)
-                inputService = new StandaloneInputService();
-            else
-                inputService = new MobileInputService();
+            StateMachine = new GameStateMachine();
         }
     }
 }
