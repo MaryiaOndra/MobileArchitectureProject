@@ -6,17 +6,23 @@ namespace CodeBase.Infrastructure
 {
     public class BootstrapState : IState
     {
+        private const string Initial = "Initial";
         private readonly GameStateMachine gameStateMachine;
+        private SceneLoader sceneLoader;
 
-        public BootstrapState(GameStateMachine gameStateMachine)
+        public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader)
         {
+            this.sceneLoader = sceneLoader;
             this.gameStateMachine = gameStateMachine;
         }
 
         public void Enter()
         {
             RegisterServices();
+            sceneLoader.Load(Initial, onLoaded: EnterLoadLevel);
         }
+
+        private void EnterLoadLevel() => gameStateMachine.Enter<LoadLevelState>();
 
         private void RegisterServices()
         {
@@ -30,7 +36,6 @@ namespace CodeBase.Infrastructure
             else
                 return new MobileInputService();
         }
-
 
         public void Exit()
         {
