@@ -22,7 +22,8 @@ namespace CodeBase.Infrastructure
             sceneLoader.Load(Initial, onLoaded: EnterLoadLevel);
         }
 
-        private void EnterLoadLevel() => gameStateMachine.Enter<LoadLevelState>();
+        private void EnterLoadLevel() => 
+            gameStateMachine.Enter<LoadLevelState, string>("GameScene");
 
         private void RegisterServices()
         {
