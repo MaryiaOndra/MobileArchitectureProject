@@ -1,4 +1,5 @@
-﻿using CodeBase.Services.Input;
+﻿using CodeBase.Logic;
+using CodeBase.Services.Input;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure
@@ -8,9 +9,9 @@ namespace CodeBase.Infrastructure
         public GameStateMachine StateMachine { get; private set; }
         public static IInputService InputService { get; set; }
 
-        public Game(ICoroutineRunner coroutineRunner)
+        public Game(ICoroutineRunner coroutineRunner, LoadingCurtain loadingCurtain)
         {
-            StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner));
+            StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), loadingCurtain);
         }
     }
 }
