@@ -36,9 +36,11 @@ namespace CodeBase.Infrastructure.States
         {
             services.RegisterSingle<IInputService>(InputService());
             services.RegisterSingle<IAssets>(new AssetProvider());
-            services.RegisterSingle<ISaveLoadService>(new SaveLoadService());
             services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
             services.RegisterSingle<IGameFactory>(new GameFactory(services.Single<IAssets>()));
+            services.RegisterSingle<ISaveLoadService>(
+                new SaveLoadService(services.Single<IPersistentProgressService>(),
+                    services.Single<IGameFactory>()));
         }
 
         private static IInputService InputService()

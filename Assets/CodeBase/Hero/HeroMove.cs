@@ -11,31 +11,35 @@ using UnityEngine.SceneManagement;
 
 namespace CodeBase.Hero
 {
+    [RequireComponent(typeof(CharacterController))]
     public class HeroMove : MonoBehaviour, ISavedProgress
     {
-        [SerializeField] private CharacterController characterController;
-        [SerializeField] private float movementSpeed;
+        [SerializeField] private float movementSpeed = 5f;
 
-        private IInputService _inputService;
+        private CharacterController _characterController;
+        private IInputService _input;
+        private HeroAnimator _heroAnimator;
 
         private void Awake()
         {
-            _inputService = AllServices.Container.Single<IInputService>();
+            _input = AllServices.Container.Single<IInputService>();
+            _characterController = GetComponent<CharacterController>();
+            _heroAnimator = GetComponent<HeroAnimator>();
         }
 
         private void Update()
         {
             Vector3 movementVector = Vector3.zero;
-            if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
+            if (_input.Axis.sqrMagnitude > Constants.Epsilon)
             {
-                if (Camera.main != null) movementVector = Camera.main.transform.TransformDirection(_inputService.Axis);
+                movementVector = Camera.main.transform.TransformDirection(_input.Axis);
                 movementVector.y = 0f;
                 movementVector.Normalize();
                 transform.forward = movementVector;
             }
 
             movementVector += Physics.gravity;
-            characterController.Move(movementSpeed * movementVector * Time.deltaTime);
+            _characterController.Move(movementSpeed * movementVector * Time.deltaTime);
         }
 
         public void UpdateProgress(PlayerProgress progress) => 
@@ -56,9 +60,9 @@ namespace CodeBase.Hero
 
         private void Warp(Vector3Data to)
         {
-            characterController.enabled = false;
-            transform.position = to.AsUnityVector();
-            characterController.enabled = true;
+            _characterController.enabled = false;
+            transform.position = to.AsUnityVector().AddY(_characterController.height);
+            _characterController.enabled = true;
         }
     }
 }

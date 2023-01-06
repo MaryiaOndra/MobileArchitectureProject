@@ -7,11 +7,11 @@ namespace CodeBase.Infrastructure
 {
     public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
     {
-        [SerializeField] private LoadingCurtain curtain;
+        [SerializeField] private LoadingCurtain curtainPrefab;
         private Game _game;
         private void Awake()
         {
-            _game = new Game(this, curtain);
+            _game = new Game(this, Instantiate(curtainPrefab));
             _game.StateMachine.Enter<BootstrapState>();
             DontDestroyOnLoad(this);
         }
