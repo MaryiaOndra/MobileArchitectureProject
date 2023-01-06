@@ -7,6 +7,7 @@ using CodeBase.Services;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CodeBase.Hero
 {
@@ -37,12 +38,27 @@ namespace CodeBase.Hero
             characterController.Move(movementSpeed * movementVector * Time.deltaTime);
         }
 
-        public void UpdateProgress(PlayerProgress progress)
-        {
-        }
+        public void UpdateProgress(PlayerProgress progress) => 
+            progress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel() ,transform.position.AsVectorData());
+
+        private static string CurrentLevel() =>
+            SceneManager.GetActiveScene().name;
 
         public void LoadProgress(PlayerProgress progress)
         {
+            if (CurrentLevel() == progress.WorldData.PositionOnLevel.Level)
+            {
+                Vector3Data savedPosition = progress.WorldData.PositionOnLevel.Position;
+                if(savedPosition != null)
+                    Warp(to: savedPosition);
+            }
+        }
+
+        private void Warp(Vector3Data to)
+        {
+            characterController.enabled = false;
+            transform.position = to.AsUnityVector();
+            characterController.enabled = true;
         }
     }
 }
