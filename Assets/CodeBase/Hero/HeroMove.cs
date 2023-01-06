@@ -1,14 +1,16 @@
 using System;
 using CodeBase.CameraLogic;
+using CodeBase.Data;
 using CodeBase.Infrastructure;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Services;
 using CodeBase.Services.Input;
+using CodeBase.Services.PersistentProgress;
 using UnityEngine;
 
 namespace CodeBase.Hero
 {
-    public class HeroMove : MonoBehaviour
+    public class HeroMove : MonoBehaviour, ISavedProgress
     {
         [SerializeField] private CharacterController characterController;
         [SerializeField] private float movementSpeed;
@@ -33,6 +35,14 @@ namespace CodeBase.Hero
 
             movementVector += Physics.gravity;
             characterController.Move(movementSpeed * movementVector * Time.deltaTime);
+        }
+
+        public void UpdateProgress(PlayerProgress progress)
+        {
+        }
+
+        public void LoadProgress(PlayerProgress progress)
+        {
         }
     }
 }
