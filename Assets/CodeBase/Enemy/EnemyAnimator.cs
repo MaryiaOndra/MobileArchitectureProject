@@ -1,36 +1,41 @@
 using System;
-using CodeBase.Enemy;
 using CodeBase.Logic.Animations;
 using UnityEngine;
 
-namespace CodeBase.Hero
+namespace CodeBase.Enemy
 {
-    public class HeroAnimator : MonoBehaviour, IAnimationStateReader
+    public class EnemyAnimator : MonoBehaviour, IAnimationStateReader
     {
-        private static readonly int MoveHash = Animator.StringToHash("Move");
+        private static readonly int Attack = Animator.StringToHash("Attack_1");
+        private static readonly int Win = Animator.StringToHash("Win");
+        private static readonly int Speed = Animator.StringToHash("Speed");
+        private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int Hit = Animator.StringToHash("Hit");
-        private static readonly int Attack = Animator.StringToHash("Attack");
         private static readonly int Die = Animator.StringToHash("Die");
         
         private  readonly int _idleStateHash = Animator.StringToHash("idle");
-        private  readonly int _attackStateHash = Animator.StringToHash("attack");
-        private  readonly int _walkingStateHash = Animator.StringToHash("walking");
+        private  readonly int _attackStateHash = Animator.StringToHash("attack01");
+        private  readonly int _walkingStateHash = Animator.StringToHash("Move");
         private  readonly int _deathStateHash = Animator.StringToHash("die");
-        
-        [SerializeField] private CharacterController characterController;
-        [SerializeField] private Animator animator;
 
-        public AnimatorState State { get; private set; }
+        private Animator animator;
+
         public event Action<AnimatorState> StateEntered;
         public event Action<AnimatorState> StateExited;
-        
+
+        public AnimatorState State { get; private set; }
+
+        private void Awake() => animator = GetComponent<Animator>();
+
         public void PlayHit() => animator.SetTrigger(Hit);
         public void PlayDeath() => animator.SetTrigger(Die);
+        public void PlayWin() => animator.SetTrigger(Win);
         public void PlayAttack() => animator.SetTrigger(Attack);
 
-        private void Update()
+        public void Move(float speed)
         {
-            animator.SetFloat(MoveHash, characterController.velocity.magnitude, 0.1f, Time.deltaTime);
+            animator.SetBool(IsMoving, true);
+            animator.SetFloat(Speed, speed);
         }
 
         public void EnteredState(int stateHash)
@@ -38,10 +43,10 @@ namespace CodeBase.Hero
             State = StateFor(stateHash);
             StateEntered?.Invoke(State);
         }
-        
+
         public void ExitedState(int stateHash) =>
             StateExited?.Invoke(StateFor(stateHash));
-        
+
         private AnimatorState StateFor(int stateHash)
         {
             AnimatorState state;
