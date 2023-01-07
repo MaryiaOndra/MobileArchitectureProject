@@ -31,6 +31,8 @@ namespace CodeBase.Enemy
         public void PlayDeath() => animator.SetTrigger(Die);
         public void PlayWin() => animator.SetTrigger(Win);
         public void PlayAttack() => animator.SetTrigger(Attack);
+        public void StopMoving() => animator.SetBool(IsMoving, false);
+
 
         public void Move(float speed)
         {
