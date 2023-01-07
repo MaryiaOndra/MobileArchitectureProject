@@ -395,13 +395,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4665124114459090}
   - component: {fileID: 6514434633496062588}
-  - component: {fileID: 6683337605322429035}
   - component: {fileID: 7399755606612639527}
   - component: {fileID: 4828603395573810258}
+  - component: {fileID: 840692800118616486}
   - component: {fileID: 95206231959375140}
   - component: {fileID: 8683902901629326613}
   m_Layer: 0
-  m_Name: FreeLichPBR
+  m_Name: AggroLookLich
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -437,19 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c1a6c5f5242cb4d9ca6517079af80f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6683337605322429035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1500939411536426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 245ba37b3c2546c8a0261cd90c027e3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 8683902901629326613}
 --- !u!114 &7399755606612639527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,7 +464,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerObserver: {fileID: 7970989587153057198}
-  follow: {fileID: 6683337605322429035}
+  follow: {fileID: 0}
+  cooldown: 3
+--- !u!114 &840692800118616486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500939411536426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6d83e43f80d4957b082e534cd41d74b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
 --- !u!95 &95206231959375140
 Animator:
   serializedVersion: 4
