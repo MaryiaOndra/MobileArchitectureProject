@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationAngleX: 55
-  distance: 7
+  distance: 5
   offsetY: 0.5
   following: {fileID: 0}
 --- !u!1001 &40270069
@@ -1080,7 +1080,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8815945222215956104, guid: c63011e403637f540bf416126cc150dc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.322
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8815945222215956104, guid: c63011e403637f540bf416126cc150dc, type: 3}
       propertyPath: m_LocalPosition.z
