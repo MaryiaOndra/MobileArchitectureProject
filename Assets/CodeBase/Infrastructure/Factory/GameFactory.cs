@@ -9,6 +9,7 @@ namespace CodeBase.Infrastructure.Factory
     public class GameFactory : IGameFactory
     {
         private readonly IAssets assets;
+        private static readonly float _instantiatePointOffset = 0.5f;
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new();
         public List<ISavedProgress> ProgressWriters { get; } = new();
@@ -23,12 +24,15 @@ namespace CodeBase.Infrastructure.Factory
 
         public GameObject CreateHero(GameObject at)
         {
-            HeroGameObject = InstantiateRegistered(AssetPath.HeroPrefabPath, at.transform.position);
+            HeroGameObject = InstantiateRegistered(AssetPath.HeroPrefabPath, InstantiateHeroPosition(at));
             HeroCreated?.Invoke();
             return HeroGameObject;
         }
 
-        public void CreateHud() =>
+        private static Vector3 InstantiateHeroPosition(GameObject at) =>
+            new Vector3(at.transform.position.x, at.transform.position.y+ _instantiatePointOffset, at.transform.position.z);
+
+        public GameObject CreateHud() =>
             InstantiateRegistered(AssetPath.HudPath);
 
         public void CleanUp()

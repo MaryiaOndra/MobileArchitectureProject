@@ -24,7 +24,7 @@ namespace CodeBase.Infrastructure.States
         public void Enter()
         {
             LoadProgressOnInitNew();
-            gameStateMachine.Enter<LoadLevelState, string>(progressService.Progress.WorldData.PositionOnLevel.Level);
+            gameStateMachine.Enter<LoadLevelState, string>(progressService.Progress.worldData.PositionOnLevel.Level);
         }
 
         public void Exit()
@@ -36,7 +36,14 @@ namespace CodeBase.Infrastructure.States
             progressService.Progress = saveLoadService.LoadProgres() ?? NewProgress();
         }
 
-        private PlayerProgress NewProgress() => 
-            new PlayerProgress(initialLevel: InitialLevelName);
+        private PlayerProgress NewProgress()
+        {
+            PlayerProgress progress = new PlayerProgress(initialLevel: InitialLevelName);
+            progress.heroState.maxHp = 50f;
+            progress.heroStats.damage = 1f;
+            progress.heroStats.damageRadius = 0.5f;
+            progress.heroState.ResetHp();
+            return progress;
+        }
     }
 }
