@@ -43,16 +43,16 @@ namespace CodeBase.Hero
         }
 
         public void UpdateProgress(PlayerProgress progress) => 
-            progress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel() ,transform.position.AsVectorData());
+            progress.worldData.PositionOnLevel = new PositionOnLevel(CurrentLevel() ,transform.position.AsVectorData());
 
         private static string CurrentLevel() =>
             SceneManager.GetActiveScene().name;
 
         public void LoadProgress(PlayerProgress progress)
         {
-            if (CurrentLevel() == progress.WorldData.PositionOnLevel.Level)
+            if (CurrentLevel() == progress.worldData.PositionOnLevel.Level)
             {
-                Vector3Data savedPosition = progress.WorldData.PositionOnLevel.Position;
+                Vector3Data savedPosition = progress.worldData.PositionOnLevel.Position;
                 if(savedPosition != null)
                     Warp(to: savedPosition);
             }
@@ -63,6 +63,11 @@ namespace CodeBase.Hero
             _characterController.enabled = false;
             transform.position = to.AsUnityVector().AddY(_characterController.height);
             _characterController.enabled = true;
+        }
+
+        public void StopMoving()
+        {
+            movementSpeed = 0f;
         }
     }
 }

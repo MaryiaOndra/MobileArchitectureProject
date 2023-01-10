@@ -1,18 +1,21 @@
 using System;
 using System.Linq;
+using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
+using CodeBase.UI;
 using UnityEngine;
 
 namespace CodeBase.Enemy
 {
     [RequireComponent(typeof(EnemyAnimator))]
-    public class Attack : MonoBehaviour
+    public class EnemyAttack : MonoBehaviour
     {
         [SerializeField] private EnemyAnimator animator;
         [SerializeField] private float attackCooldown = 3f;
         [SerializeField] private float cleavage = 0.5f;
         [SerializeField] private float effectiveDistance = 0.5f;
+        [SerializeField] private float damage = 10f;
 
         private IGameFactory factory;
         private Transform heroTransform;
@@ -40,6 +43,7 @@ namespace CodeBase.Enemy
         {
             if (Hit(out Collider hit))
                 PhysicsDebug.DrawDebug(StartPoint(), cleavage, 1f);
+            hit.transform.GetComponent<IHealth>().TakeDamage(damage);
         }
 
         private bool Hit(out Collider hit)

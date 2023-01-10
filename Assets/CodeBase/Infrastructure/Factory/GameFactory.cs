@@ -32,7 +32,7 @@ namespace CodeBase.Infrastructure.Factory
         private static Vector3 InstantiateHeroPosition(GameObject at) =>
             new Vector3(at.transform.position.x, at.transform.position.y+ _instantiatePointOffset, at.transform.position.z);
 
-        public void CreateHud() =>
+        public GameObject CreateHud() =>
             InstantiateRegistered(AssetPath.HudPath);
 
         public void CleanUp()

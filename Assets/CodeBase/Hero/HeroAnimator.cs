@@ -21,12 +21,18 @@ namespace CodeBase.Hero
         [SerializeField] private Animator animator;
 
         public AnimatorState State { get; private set; }
+        public static bool IsAttacking { get; private set; }
+
         public event Action<AnimatorState> StateEntered;
         public event Action<AnimatorState> StateExited;
         
         public void PlayHit() => animator.SetTrigger(Hit);
         public void PlayDeath() => animator.SetTrigger(Die);
-        public void PlayAttack() => animator.SetTrigger(Attack);
+        public void PlayAttack()
+        {
+            IsAttacking = true;
+            animator.SetTrigger(Attack);
+        }
 
         private void Update()
         {
@@ -39,9 +45,18 @@ namespace CodeBase.Hero
             StateEntered?.Invoke(State);
         }
         
-        public void ExitedState(int stateHash) =>
+        public void ExitedState(int stateHash)
+        {
+            CheckIfAttackFinished(stateHash);
             StateExited?.Invoke(StateFor(stateHash));
-        
+        }
+
+        private void CheckIfAttackFinished(int stateHash)
+        {
+            if (stateHash == _attackStateHash)
+                IsAttacking = false;
+        }
+
         private AnimatorState StateFor(int stateHash)
         {
             AnimatorState state;

@@ -918,6 +918,9 @@ GameObject:
   - component: {fileID: 4217027598938852852}
   - component: {fileID: 95658022555206892}
   - component: {fileID: 3027036605149914624}
+  - component: {fileID: 7741620068991583021}
+  - component: {fileID: 6975724464660118354}
+  - component: {fileID: 7049125720821295641}
   - component: {fileID: 3912092672057864460}
   - component: {fileID: 607179077890548681}
   - component: {fileID: 2774892352902042604}
@@ -992,6 +995,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 3912092672057864460}
   animator: {fileID: 95658022555206892}
+--- !u!114 &7741620068991583021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319517528997712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c4532d80aeb4d519578f4bae874f63f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 3027036605149914624}
+--- !u!114 &6975724464660118354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319517528997712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d6590fa56748a0847124774bf04273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 7741620068991583021}
+  move: {fileID: 4217027598938852852}
+  animator: {fileID: 3027036605149914624}
+  deathFX: {fileID: 100006, guid: e456f8fcee79e154bb154e0642309661, type: 3}
+  attack: {fileID: 7049125720821295641}
+--- !u!114 &7049125720821295641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319517528997712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 322505dc7bac441787ec016aa9df26a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 3027036605149914624}
+  controller: {fileID: 3912092672057864460}
 --- !u!143 &3912092672057864460
 CharacterController:
   m_ObjectHideFlags: 0
